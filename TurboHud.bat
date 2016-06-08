@@ -1,2 +1,2 @@
 call Turbohud.AutoUpdate.exe
-call Turbohud.exe
+start Turbohud.exe
