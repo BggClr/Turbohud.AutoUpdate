@@ -20,9 +20,10 @@ namespace Turbohud.AutoUpdate.Services
 					}
 					else
 					{
-						if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+						var directoryName = Path.GetDirectoryName(filePath);
+						if (!Directory.Exists(directoryName))
 						{
-							Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+							Directory.CreateDirectory(directoryName);
 						}
 						file.ExtractToFile(filePath, true);
 					}
