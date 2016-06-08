@@ -12,17 +12,21 @@ namespace Turbohud.AutoUpdate
 
 		static async Task Run()
 		{
-			var findLinkToLatestThreadService = new FindLinkToLatestThreadPageService();
-			var latestReleasePageLink = await findLinkToLatestThreadService.FindLink();
-			var findLinkToDownloadFilePageService = new FindLinkToDownloadFilePageService();
-			var downloadFilePageLink = await findLinkToDownloadFilePageService.FindLink(latestReleasePageLink);
-			var findLinkToFileService = new FindLinkToFileService();
-			var downloadFileLink = await findLinkToFileService.FindLink(downloadFilePageLink);
+			var checkVersionService = new CheckLatestVersionService();
+			if (!await checkVersionService.IsLocalVersionMatchesLatest())
+			{
+				var findLinkToLatestThreadService = new FindLinkToLatestThreadPageService();
+				var latestReleasePageLink = await findLinkToLatestThreadService.FindLink();
+				var findLinkToDownloadFilePageService = new FindLinkToDownloadFilePageService();
+				var downloadFilePageLink = await findLinkToDownloadFilePageService.FindLink(latestReleasePageLink);
+				var findLinkToFileService = new FindLinkToFileService();
+				var downloadFileLink = await findLinkToFileService.FindLink(downloadFilePageLink);
 
-			var donwloadFileService = new DonwloadFileService();
-			var filePath = donwloadFileService.Download(downloadFileLink);
-			var extractFileService = new ExtractFileToCurrentDirectoryService();
-			extractFileService.ExtractFile(filePath);
+				var donwloadFileService = new DonwloadFileService();
+				var filePath = donwloadFileService.Download(downloadFileLink);
+				var extractFileService = new ExtractFileToCurrentDirectoryService();
+				extractFileService.ExtractFile(filePath);
+			}
 		}
 	}
 }

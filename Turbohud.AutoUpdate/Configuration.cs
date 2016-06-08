@@ -7,5 +7,6 @@ namespace Turbohud.AutoUpdate
 	{
 		public static Uri ReleasesPageUrl => new Uri(ConfigurationManager.AppSettings["ReleasesUrl"]);
 		public static string DirectxVersion => ConfigurationManager.AppSettings["DirectxVersion"];
+		public static string TurbohudFilename => ConfigurationManager.AppSettings["TurbohudFilename"];
 	}
 }
